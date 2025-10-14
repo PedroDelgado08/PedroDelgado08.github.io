@@ -44,22 +44,49 @@
       text-align: center;
     }
 
-    .btn {
-      display: inline-block;
-      margin: 10px 0 0 0;
+    /* ==== BOTONES PROFESIONALES ==== */
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .btn-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 10px 20px;
-      background: #fff;
-      color: #0077ff;
-      border-radius: 8px;
+      border-radius: 10px;
       text-decoration: none;
-      font-weight: bold;
-      transition: all 0.2s ease;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.25s ease;
+      color: #fff;
     }
 
-    .btn:hover {
-      background: #f0f0f0;
+    .btn-social svg {
+      width: 22px;
+      height: 22px;
     }
 
+    .btn-github {
+      background-color: #171515;
+    }
+    .btn-github:hover {
+      background-color: #2d2d2d;
+      transform: translateY(-2px);
+    }
+
+    .btn-linkedin {
+      background-color: #0077B5;
+    }
+    .btn-linkedin:hover {
+      background-color: #0090e0;
+      transform: translateY(-2px);
+    }
+
+    /* ==== TARJETAS ==== */
     #featured, #projects {
       width: 90%;
       max-width: 1200px;
@@ -75,9 +102,11 @@
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
-
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
       display: flex;
-      flex-direction: column; /* para empujar botón abajo */
+      flex-direction: column;
     }
 
     .card:hover {
@@ -93,7 +122,7 @@
     .card p {
       color: #e0e0e0;
       font-size: 0.95rem;
-      flex-grow: 1; /* para ocupar espacio y empujar botón abajo */
+      flex-grow: 1;
     }
 
     footer {
@@ -102,14 +131,6 @@
       font-size: 0.9rem;
       color: #f8f8f8;
     }
-
-    .group-title {
-      font-size: 1.5rem;
-      margin-top: 40px;
-      text-align: left;
-      border-bottom: 2px solid rgba(255,255,255,0.3);
-      padding-bottom: 5px;
-    }
   </style>
 </head>
 <body>
@@ -117,27 +138,69 @@
     <img src="assets/img/perfil.jpg" alt="Pedro Delgado">
     <h1>Pedro Delgado de Robles Munaiz</h1>
     <p>Data Scientist | Machine Learning | Deep Learning | Análisis Predictivo</p>
-    <a href="https://github.com/PedroDelgado08" target="_blank" class="btn">GitHub</a>
-    <a href="https://www.linkedin.com/in/pedro-delgado-de-robles-munaiz-778b74250/" target="_blank" class="btn">LinkedIn</a>
+
+    <div class="social-buttons">
+      <!-- GitHub -->
+      <a href="https://github.com/PedroDelgado08" target="_blank" class="btn-social btn-github">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 
+          2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 
+          0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23
+          -.48-.94-.82-1.13-.28-.15-.68-.52
+          -.01-.53.63-.01 1.08.58 1.23.82.72 
+          1.21 1.87.87 2.33.66.07-.52.28-.87.51
+          -1.07-1.78-.2-3.64-.89-3.64-3.95 
+          0-.87.31-1.59.82-2.15-.08-.2-.36
+          -1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 
+          7.65 0 0 1 8 4.75a7.6 7.6 0 0 1 
+          2.01.27c1.53-1.04 2.2-.82 2.2-.82.44 
+          1.1.16 1.92.08 2.12.51.56.82 
+          1.27.82 2.15 0 3.07-1.87 3.75-3.65 
+          3.95.29.25.54.73.54 1.48 0 1.07-.01 
+          1.93-.01 2.2 0 .21.15.46.55.38A8.013 
+          8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        GitHub
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/pedro-delgado-de-robles-munaiz-778b74250/" target="_blank" class="btn-social btn-linkedin">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M0 1.146C0 .513.526 0 1.175 
+          0h13.65C15.474 0 16 .513 16 1.146v13.708c0 
+          .633-.526 1.146-1.175 1.146H1.175A1.146 
+          1.146 0 0 1 0 14.854V1.146zm4.943 
+          12.248V6.169H2.542v7.225h2.401zM3.743 
+          5.092c.837 0 1.358-.554 1.358-1.248-.015-.709
+          -.52-1.248-1.341-1.248-.821 
+          0-1.358.54-1.358 1.248 0 .694.52 
+          1.248 1.326 1.248h.015zm4.908 
+          8.302h2.4V9.359c0-.213.015-.426.08-.577.175
+          -.426.574-.868 1.243-.868.877 
+          0 1.228.654 1.228 1.614v4.866h2.4V9.25c0
+          -2.22-1.184-3.252-2.763-3.252-1.28 
+          0-1.845.71-2.165 1.203h.03V6.169h-2.4
+          c.03.694 0 7.225 0 7.225z"/>
+        </svg>
+        LinkedIn
+      </a>
+    </div>
   </header>
 
   <h2>🌟 Proyectos destacados</h2>
   <section id="featured">
-    <div class="card">
+    <a href="proyectos/DS4B/RETAIL.html" class="card">
       <h3>RETAIL</h3>
       <p>Forecast de ventas con aproximación de ML.</p>
-      <a href="proyectos/DS4B/RETAIL.html" class="btn">Ver Proyecto</a>
-    </div>
-    <div class="card">
+    </a>
+    <a href="proyectos/DS4B/LeadScoring.html" class="card">
       <h3>Lead Scoring</h3>
       <p>Clasificación de clientes.</p>
-      <a href="proyectos/DS4B/LeadScoring.html" class="btn">Ver Proyecto</a>
-    </div>
-    <div class="card">
+    </a>
+    <a href="proyectos/DS4B/ECOMMERCE.html" class="card">
       <h3>ECOMMERCE</h3>
       <p>Análisis de una tienda online</p>
-      <a href="proyectos/DS4B/ECOMMERCE.html" class="btn">Ver Proyecto</a>
-    </div>
+    </a>
   </section>
 
   <h2>📂 Todos los Proyectos</h2>
@@ -158,7 +221,6 @@
       .then(repos => {
         const groups = {};
 
-        // extraemos solo los grupos
         repos.forEach(repo => {
           if (repo.name === "PedroDelgado08.github.io") return;
           if (!repo.fork) {
@@ -172,13 +234,11 @@
         container.innerHTML = "";
 
         Object.keys(groups).forEach(group => {
-          const folderCard = document.createElement("div");
-          folderCard.className = "card";
-          folderCard.innerHTML = `
-            <h3>📁 ${group}</h3>
-            <a href="./proyectos/${group}/index.html" class="btn">Abrir Carpeta</a>
-          `;
-          container.appendChild(folderCard);
+          const link = document.createElement("a");
+          link.className = "card";
+          link.href = `./proyectos/${group}/index.html`;
+          link.innerHTML = `<h3>📁 ${group}</h3>`;
+          container.appendChild(link);
         });
       })
       .catch(err => {
