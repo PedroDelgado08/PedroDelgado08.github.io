@@ -11,47 +11,75 @@
       color: #fff;
       margin: 0;
       padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     header {
       text-align: center;
-      margin-top: 50px;
+      padding: 50px 20px 30px 20px;
+    }
+
+    header img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      margin-bottom: 20px;
     }
 
     h1 {
       font-size: 3rem;
-      margin-bottom: 0.3em;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: 60px;
+      text-align: center;
     }
 
     p {
-      font-size: 1.2rem;
-      margin-bottom: 1.5em;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 10px auto;
+      text-align: center;
     }
 
-    #projects {
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background: #fff;
+      color: #0077ff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #f0f0f0;
+    }
+
+    #featured, #projects {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto 60px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
-      width: 90%;
-      max-width: 1000px;
-      margin-bottom: 60px;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 12px;
       padding: 20px;
-      transition: all 0.3s ease;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.25);
     }
 
     .card h3 {
@@ -64,40 +92,61 @@
       font-size: 0.95rem;
     }
 
-    a.btn {
-      margin-top: 10px;
-      display: inline-block;
-      padding: 8px 15px;
-      background: #fff;
-      color: #0077ff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    a.btn:hover {
-      background: #f0f0f0;
-    }
-
     footer {
-      margin-bottom: 30px;
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
       color: #f8f8f8;
+    }
+
+    .group-title {
+      font-size: 1.5rem;
+      margin-top: 40px;
+      text-align: left;
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      padding-bottom: 5px;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>🚀 Pedro Delgado</h1>
-    <p>Data Scientist | Machine Learning | Deep Learning</p>
-    <a href="https://github.com/PedroDelgado08" target="_blank" class="btn">Mi GitHub</a>
+    <img src="https://avatars.githubusercontent.com/u/000000?v=4" alt="Pedro Delgado"> <!-- Cambia este enlace por tu avatar real -->
+    <h1>Pedro Delgado</h1>
+    <p>Data Scientist | Machine Learning | Deep Learning | Análisis Predictivo</p>
+    <a href="https://github.com/PedroDelgado08" target="_blank" class="btn">GitHub</a>
+    <a href="https://linkedin.com/in/tu-perfil" target="_blank" class="btn">LinkedIn</a>
   </header>
 
+  <h2>🌟 Proyectos destacados</h2>
+  <section id="featured">
+    <!-- Añade aquí tus 3 proyectos destacados manualmente -->
+    <div class="card">
+      <h3>DS4B-CustomerChurn</h3>
+      <p>Modelo de predicción de abandono de clientes con enfoque de negocio.</p>
+      <a href="https://github.com/PedroDelgado08/DS4B-CustomerChurn" class="btn" target="_blank">Ver en GitHub</a>
+      <a href="proyectos/DS4B/CustomerChurn.html" class="btn">Ver explicación</a>
+    </div>
+    <div class="card">
+      <h3>DS4B-SalesForecast</h3>
+      <p>Modelo de forecasting de ventas con Prophet y regresión bayesiana.</p>
+      <a href="https://github.com/PedroDelgado08/DS4B-SalesForecast" class="btn" target="_blank">Ver en GitHub</a>
+      <a href="proyectos/DS4B/SalesForecast.html" class="btn">Ver explicación</a>
+    </div>
+    <div class="card">
+      <h3>DeepVision</h3>
+      <p>Clasificador de imágenes con CNNs, explicado desde el punto de vista de negocio.</p>
+      <a href="https://github.com/PedroDelgado08/DeepVision" class="btn" target="_blank">Ver en GitHub</a>
+      <a href="proyectos/personales/DeepVision.html" class="btn">Ver explicación</a>
+    </div>
+  </section>
+
+  <h2>📂 Todos los proyectos</h2>
   <section id="projects">
     <p>Cargando proyectos...</p>
   </section>
 
   <footer>
-    <p>© 2025 Pedro Delgado — Portfolio creado con ❤️ y GitHub Pages</p>
+    © 2025 Pedro Delgado — Portfolio creado con ❤️ y GitHub Pages
   </footer>
 
   <script>
@@ -105,20 +154,42 @@
     const container = document.getElementById("projects");
 
     fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
-      .then(response => response.json())
+      .then(res => res.json())
       .then(repos => {
-        container.innerHTML = "";
+        const groups = {};
+
         repos.forEach(repo => {
           if (!repo.fork) {
+            let group = "Personales";
+            if (repo.name.includes("-")) {
+              group = repo.name.split("-")[1];
+            }
+            if (!groups[group]) groups[group] = [];
+            groups[group].push(repo);
+          }
+        });
+
+        container.innerHTML = "";
+
+        Object.keys(groups).forEach(group => {
+          const groupTitle = document.createElement("h3");
+          groupTitle.className = "group-title";
+          groupTitle.textContent = group;
+          container.appendChild(groupTitle);
+
+          groups[group].forEach(repo => {
             const card = document.createElement("div");
             card.className = "card";
+            const subName = repo.name.includes("-") ? repo.name.split("-").slice(1).join("-") : repo.name;
+            const folder = group === "Personales" ? "personales" : group;
             card.innerHTML = `
               <h3>${repo.name}</h3>
-              <p>${repo.description || "Sin descripción"}</p>
+              <p>${repo.description || "Sin descripción disponible"}</p>
               <a href="${repo.html_url}" target="_blank" class="btn">Ver en GitHub</a>
+              <a href="proyectos/${folder}/${subName}.html" class="btn">Ver explicación</a>
             `;
             container.appendChild(card);
-          }
+          });
         });
       })
       .catch(err => {
