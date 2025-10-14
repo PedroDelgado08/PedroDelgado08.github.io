@@ -75,7 +75,17 @@
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
+
+      display: flex;           /* Activamos flexbox */
+      flex-direction: column;  /* Colocamos los hijos en columna */
     }
+    
+    .card .btn {
+      margin-top: auto; /* Esto empuja el botón hacia abajo */
+      align-self: flex-start; /* opcional: mantiene el botón alineado a la izquierda */
+    }
+
+
 
     .card:hover {
       transform: translateY(-5px);
@@ -121,21 +131,18 @@
   <section id="featured">
     <div class="card">
       <h3>RETAIL</h3>
-      <p>Modelo de predicción de abandono de clientes con enfoque de negocio.</p>
-      <a href="https://github.com/PedroDelgado08/RETAIL-DS4B-" class="btn" target="_blank">Ver en GitHub</a>
-      <a href="proyectos/DS4B/RETAIL.html" class="btn">Ver explicación</a>
+      <p>Forecast de ventas con aproximación de ML.</p>
+      <a href="proyectos/DS4B/RETAIL.html" class="btn">Ver Proyecto</a>
     </div>
     <div class="card">
       <h3>Lead Scoring</h3>
-      <p>Modelo de forecasting de ventas con Prophet y regresión bayesiana.</p>
-      <a href="https://github.com/PedroDelgado08/LeadScoring-DS4B-" class="btn" target="_blank">Ver en GitHub</a>
-      <a href="proyectos/DS4B/LeadScoring.html" class="btn">Ver explicación</a>
+      <p>Clasificación de clientes.</p>
+      <a href="proyectos/DS4B/LeadScoring.html" class="btn">Ver Proyecto</a>
     </div>
     <div class="card">
       <h3>ECOMMERCE</h3>
-      <p>Clasificador de imágenes con CNNs, explicado desde el punto de vista de negocio.</p>
-      <a href="https://github.com/PedroDelgado08/ECOMMERCE-DS4B-" class="btn" target="_blank">Ver en GitHub</a>
-      <a href="proyectos/DS4B/ECOMMERCE.html" class="btn">Ver explicación</a>
+      <p>Análisis de una tienda online</p>
+      <a href="proyectos/DS4B/ECOMMERCE.html" class="btn">Ver Proyecto</a>
     </div>
   </section>
 
@@ -158,6 +165,7 @@
       const groups = {};
 
       repos.forEach(repo => {
+        if (repo.name === "PedroDelgado08.github.io") return;
         if (!repo.fork) {
           let group = "Personales";
           let subName = repo.name;
@@ -190,8 +198,9 @@
           card.innerHTML = `
             <h3>${repo.subName}</h3>
             <p>${repo.description || "Sin descripción disponible"}</p>
-            <a href="${repo.html_url}" target="_blank" class="btn">Ver en GitHub</a>
-            <a href="./proyectos/${folder}/${repo.subName}.html" class="btn">Ver explicación</a>
+
+
+            <a href="./proyectos/${folder}/${repo.subName}.html" class="btn">Ver Proyecto</a>
           `;
           container.appendChild(card);
         });

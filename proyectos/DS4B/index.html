@@ -1,0 +1,37 @@
+<section id="projects">
+  <p>Cargando proyectos...</p>
+</section>
+
+<script>
+const username = "PedroDelgado08";
+const container = document.getElementById("projects");
+const group = "DS4B"; // cambiar según la carpeta
+
+fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+  .then(res => res.json())
+  .then(repos => {
+    const projects = repos.filter(repo => {
+      if (repo.name === "PedroDelgado08.github.io" || repo.fork) return false;
+      const match = repo.name.match(/^(.*?)-([A-Za-z0-9]+)-$/);
+      return match && match[2] === group;
+    });
+
+    container.innerHTML = "";
+
+    projects.forEach(repo => {
+      const subName = repo.name.split('-')[0];
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <h3>${subName}</h3>
+        <p>${repo.description || "Sin descripción disponible"}</p>
+        <a href="./${subName}.html" class="btn">Ver Proyecto</a>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(err => {
+    container.innerHTML = "<p>Error al cargar proyectos 😢</p>";
+    console.error(err);
+  });
+</script>
