@@ -110,8 +110,8 @@
 </head>
 <body>
   <header>
-    <img src="https://avatars.githubusercontent.com/u/000000?v=4" alt="Pedro Delgado"> <!-- Cambia este enlace por tu avatar real -->
-    <h1>Pedro Delgado</h1>
+    <img src="assets/img/perfil.jpg" alt="Pedro Delgado">
+    <h1>Pedro Delgado de Robles Munaiz</h1>
     <p>Data Scientist | Machine Learning | Deep Learning | Análisis Predictivo</p>
     <a href="https://github.com/PedroDelgado08" target="_blank" class="btn">GitHub</a>
     <a href="https://linkedin.com/in/tu-perfil" target="_blank" class="btn">LinkedIn</a>
@@ -119,24 +119,23 @@
 
   <h2>🌟 Proyectos destacados</h2>
   <section id="featured">
-    <!-- Añade aquí tus 3 proyectos destacados manualmente -->
     <div class="card">
-      <h3>DS4B-CustomerChurn</h3>
+      <h3>RETAIL</h3>
       <p>Modelo de predicción de abandono de clientes con enfoque de negocio.</p>
-      <a href="https://github.com/PedroDelgado08/DS4B-CustomerChurn" class="btn" target="_blank">Ver en GitHub</a>
-      <a href="proyectos/DS4B/CustomerChurn.html" class="btn">Ver explicación</a>
+      <a href="https://github.com/PedroDelgado08/RETAIL-DS4B-" class="btn" target="_blank">Ver en GitHub</a>
+      <a href="proyectos/DS4B/RETAIL.html" class="btn">Ver explicación</a>
     </div>
     <div class="card">
-      <h3>DS4B-SalesForecast</h3>
+      <h3>Lead Scoring</h3>
       <p>Modelo de forecasting de ventas con Prophet y regresión bayesiana.</p>
-      <a href="https://github.com/PedroDelgado08/DS4B-SalesForecast" class="btn" target="_blank">Ver en GitHub</a>
-      <a href="proyectos/DS4B/SalesForecast.html" class="btn">Ver explicación</a>
+      <a href="https://github.com/PedroDelgado08/LeadScoring-DS4B-" class="btn" target="_blank">Ver en GitHub</a>
+      <a href="proyectos/DS4B/LeadScoring.html" class="btn">Ver explicación</a>
     </div>
     <div class="card">
-      <h3>DeepVision</h3>
+      <h3>ECOMMERCE</h3>
       <p>Clasificador de imágenes con CNNs, explicado desde el punto de vista de negocio.</p>
-      <a href="https://github.com/PedroDelgado08/DeepVision" class="btn" target="_blank">Ver en GitHub</a>
-      <a href="proyectos/personales/DeepVision.html" class="btn">Ver explicación</a>
+      <a href="https://github.com/PedroDelgado08/ECOMMERCE-DS4B-" class="btn" target="_blank">Ver en GitHub</a>
+      <a href="proyectos/DS4B/ECOMMERCE.html" class="btn">Ver explicación</a>
     </div>
   </section>
 
@@ -150,52 +149,59 @@
   </footer>
 
   <script>
-    const username = "PedroDelgado08";
-    const container = document.getElementById("projects");
+  const username = "PedroDelgado08";
+  const container = document.getElementById("projects");
 
-    fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
-      .then(res => res.json())
-      .then(repos => {
-        const groups = {};
+  fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+    .then(res => res.json())
+    .then(repos => {
+      const groups = {};
 
-        repos.forEach(repo => {
-          if (!repo.fork) {
-            let group = "Personales";
-            if (repo.name.includes("-")) {
-              group = repo.name.split("-")[1];
-            }
-            if (!groups[group]) groups[group] = [];
-            groups[group].push(repo);
+      repos.forEach(repo => {
+        if (!repo.fork) {
+          let group = "Personales";
+          let subName = repo.name;
+
+          // ✅ Detección para nombres tipo "nombreProyecto-nombreGrupo-"
+          const match = repo.name.match(/^(.*?)-([A-Za-z0-9]+)-$/);
+          if (match) {
+            subName = match[1];  // nombre del proyecto
+            group = match[2];    // grupo (DS4B, etc.)
           }
-        });
 
-        container.innerHTML = "";
-
-        Object.keys(groups).forEach(group => {
-          const groupTitle = document.createElement("h3");
-          groupTitle.className = "group-title";
-          groupTitle.textContent = group;
-          container.appendChild(groupTitle);
-
-          groups[group].forEach(repo => {
-            const card = document.createElement("div");
-            card.className = "card";
-            const subName = repo.name.includes("-") ? repo.name.split("-").slice(1).join("-") : repo.name;
-            const folder = group === "Personales" ? "personales" : group;
-            card.innerHTML = `
-              <h3>${repo.name}</h3>
-              <p>${repo.description || "Sin descripción disponible"}</p>
-              <a href="${repo.html_url}" target="_blank" class="btn">Ver en GitHub</a>
-              <a href="proyectos/${folder}/${subName}.html" class="btn">Ver explicación</a>
-            `;
-            container.appendChild(card);
-          });
-        });
-      })
-      .catch(err => {
-        container.innerHTML = "<p>Error al cargar proyectos 😢</p>";
-        console.error(err);
+          if (!groups[group]) groups[group] = [];
+          groups[group].push({ ...repo, subName });
+        }
       });
+
+      container.innerHTML = "";
+
+      Object.keys(groups).forEach(group => {
+        const groupTitle = document.createElement("h3");
+        groupTitle.className = "title-group";
+        groupTitle.textContent = `📁 ${group}`;
+        container.appendChild(groupTitle);
+
+        groups[group].forEach(repo => {
+          const card = document.createElement("div");
+          card.className = "card";
+          const folder = group === "Personales" ? "personales" : group;
+
+          card.innerHTML = `
+            <h3>${repo.subName}</h3>
+            <p>${repo.description || "Sin descripción disponible"}</p>
+            <a href="${repo.html_url}" target="_blank" class="btn">Ver en GitHub</a>
+            <a href="./proyectos/${folder}/${repo.subName}.html" class="btn">Ver explicación</a>
+          `;
+          container.appendChild(card);
+        });
+      });
+    })
+    .catch(err => {
+      container.innerHTML = "<p>Error al cargar proyectos 😢</p>";
+      console.error(err);
+    });
   </script>
+
 </body>
 </html>
