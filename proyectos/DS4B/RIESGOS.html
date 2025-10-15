@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><!-- CAMBIAR: Nombre del proyecto --> | Pedro Delgado</title>
+  <title>RIESGOS | Pedro Delgado</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -45,18 +45,24 @@
     }
 
     a.btn {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       background: #0077ff;
       color: #fff;
-      padding: 10px 20px;
-      border-radius: 6px;
+      padding: 10px 18px;
+      border-radius: 8px;
       text-decoration: none;
       margin-top: 20px;
-      transition: background 0.2s;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
     a.btn:hover {
       background: #005ecc;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
     footer {
@@ -73,23 +79,65 @@
       border-left: 4px solid #2196f3;
       margin: 15px 0;
     }
+
+    /* Botón de inicio fijo en esquina superior izquierda */
+    .home-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: white;
+      border: 2px solid #0077ff;
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: all 0.25s ease;
+      z-index: 1000;
+    }
+
+    .home-btn svg {
+      width: 26px;
+      height: 26px;
+      fill: #0077ff;
+      transition: fill 0.25s ease;
+    }
+
+    .home-btn:hover {
+      background: #0077ff;
+    }
+
+    .home-btn:hover svg {
+      fill: white;
+    }
   </style>
 </head>
 <body>
+  <!-- Botón de inicio con ícono SVG moderno -->
+  <a href="../../index.html" class="home-btn" title="Inicio">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+  </a>
+
   <header>
-    <h1><!-- CAMBIAR: Título del proyecto --></h1>
-    <p><!-- CAMBIAR: Subtítulo o frase corta sobre el proyecto --></p>
+    <h1>RIESGOS</h1>
+    <p>DATA SCIENCE FOR BUSINESS</p>
   </header>
 
   <main>
     <section id="introduccion">
       <h2>Introducción</h2>
-      <p><!-- CAMBIAR: Breve contexto del proyecto. Qué problema aborda, de qué tipo de empresa o situación parte. --></p>
+      <p>Este proyecto tratará de hacer un análisis de los clientes de un banco con el fin de detectar potenciales 
+        impagos en la concesión de crédito </p>
     </section>
 
     <section id="enfoque">
       <h2>Enfoque de negocio</h2>
-      <p><!-- CAMBIAR: Explica el objetivo desde el punto de vista estratégico, no técnico. Qué impacto se buscaba. --></p>
+      <p></p>
       <div class="highlight">
         💡 <strong>Ejemplo:</strong> Reducir el abandono de clientes en un 10% a través de la detección temprana de señales de fuga.
       </div>
@@ -111,7 +159,19 @@
       </ul>
     </section>
 
-    <a href="../../index.html" class="btn">← Volver al portfolio</a>
+    <!-- Botones inferiores con íconos SVG -->
+    <a href="javascript:history.back()" class="btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      Volver
+    </a>
+    <a href="https://github.com/PedroDelgado08/RIESGOS-DS4B-" target="_blank" class="btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24">
+        <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 008.21 11.42c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.42-4.04-1.42-.55-1.4-1.34-1.77-1.34-1.77-1.09-.74.09-.73.09-.73 1.2.09 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.77-1.6-2.66-.3-5.46-1.34-5.46-5.97 0-1.32.47-2.39 1.24-3.24-.12-.31-.54-1.57.12-3.27 0 0 1-.32 3.3 1.23a11.48 11.48 0 016 0c2.31-1.55 3.3-1.23 3.3-1.23.66 1.7.24 2.96.12 3.27.78.85 1.24 1.92 1.24 3.24 0 4.64-2.8 5.67-5.47 5.97.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/>
+      </svg>
+      Ver código en GitHub
+    </a>
   </main>
 
   <footer>
