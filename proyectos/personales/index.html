@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personales | Proyectos</title>
+  <title>Proyectos Personales</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,40 +12,40 @@
       margin: 0;
       padding: 0;
     }
+
     header {
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 20px 30px 20px;
     }
+
     header img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #fff;
+      width: 160px;
+      height: auto;
       margin-bottom: 20px;
+      border-radius: 50%;
     }
+
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin: 0;
     }
-    h2 {
-      font-size: 2rem;
-      margin-top: 40px;
+
+    p.intro {
+      max-width: 800px;
+      margin: 20px auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #f5f5f5;
       text-align: center;
     }
-    .btn {
-      display: inline-block;
-      margin: 10px 0 0 0;
-      padding: 10px 20px;
-      background: #fff;
-      color: #0077ff;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.2s ease;
+
+    h2 {
+      font-size: 2rem;
+      margin-top: 60px;
+      text-align: center;
     }
-    .btn:hover {
-      background: #f0f0f0;
-    }
+
+    /* ==== TARJETAS ==== */
     #projects {
       width: 90%;
       max-width: 1200px;
@@ -54,28 +54,36 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
     }
+
     .card {
       background: rgba(255, 255, 255, 0.15);
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
       display: flex;
       flex-direction: column;
     }
+
     .card:hover {
       transform: translateY(-5px);
       background: rgba(255, 255, 255, 0.25);
     }
+
     .card h3 {
       margin-top: 0;
       color: #fff;
     }
+
     .card p {
       color: #e0e0e0;
       font-size: 0.95rem;
       flex-grow: 1;
     }
+
     footer {
       text-align: center;
       padding: 30px;
@@ -87,10 +95,12 @@
 <body>
 
   <header>
-    <img src="../../assets/img/perfil.jpg" alt="Pedro Delgado">
-    <h1>Proyectos Personales</h1>
-    <a href="https://github.com/PedroDelgado08" target="_blank" class="btn">GitHub</a>
-    <a href="https://www.linkedin.com/in/pedro-delgado-de-robles-munaiz-778b74250/" target="_blank" class="btn">LinkedIn</a>
+    <img src="../../assets/img/perfil.jpg" alt="Logo personal">
+    <h1>Mis Proyectos</h1>
+
+    <p class="intro">
+      Esta sección está dedicada a todos mis trabajos personales.
+    </p>
   </header>
 
   <h2>📂 Proyectos Personales</h2>
@@ -104,37 +114,36 @@
 
   <script>
     const username = "PedroDelgado08";
-const container = document.getElementById("projects");
+    const container = document.getElementById("projects");
 
-fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
-  .then(res => res.json())
-  .then(repos => {
-    // Filtramos los repos que no tienen grupo y no son forks
-    const projects = repos.filter(repo => {
-      if (repo.name === "PedroDelgado08.github.io" || repo.fork) return false;
-      const match = repo.name.match(/^(.*?)-([A-Za-z0-9]+)-$/);
-      return !match; // los que no tienen grupo
-    });
+    fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+      .then(res => res.json())
+      .then(repos => {
+        // Filtramos los repos que no tienen grupo y no son forks
+        const projects = repos.filter(repo => {
+          if (repo.name === "PedroDelgado08.github.io" || repo.fork) return false;
+          const match = repo.name.match(/^(.*?)-([A-Za-z0-9]+)-$/);
+          return !match; // los que no tienen grupo
+        });
 
-    container.innerHTML = "";
+        container.innerHTML = "";
 
-    projects.forEach(repo => {
-      const subName = repo.name; // aquí usamos el nombre completo
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <h3>${subName}</h3>
-        <p>${repo.description || "Sin descripción disponible"}</p>
-        <a href="./${subName}.html" class="btn">Ver Proyecto</a>
-      `;
-      container.appendChild(card);
-    });
-  })
-  .catch(err => {
-    container.innerHTML = "<p>Error al cargar proyectos 😢</p>";
-    console.error(err);
-  });
-
+        projects.forEach(repo => {
+          const subName = repo.name; // usamos el nombre completo
+          const card = document.createElement("a");
+          card.className = "card";
+          card.href = `./${subName}.html`; // 👉 enlace al HTML con el mismo nombre
+          card.innerHTML = `
+            <h3>${subName}</h3>
+            <p>${repo.description || "Sin descripción disponible"}</p>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        container.innerHTML = "<p>Error al cargar proyectos 😢</p>";
+        console.error(err);
+      });
   </script>
 </body>
 </html>
